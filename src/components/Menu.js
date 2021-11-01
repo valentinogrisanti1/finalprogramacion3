@@ -17,8 +17,8 @@ class Menu extends Component {
             <NavigationContainer>
                 <Drawer.Navigator>
                     <Drawer.Screen name="Home" component={() => <Home />} />
-                    <Drawer.Screen name="Login" component={() => <Login />} />
-                    <Drawer.Screen name="Register" component={() => <Register />} />
+                    {/* <Drawer.Screen name="Login" component={() => <Login />} />
+                    <Drawer.Screen name="Register" component={() => <Register />} /> */}
                 </Drawer.Navigator>
             </NavigationContainer>
         )

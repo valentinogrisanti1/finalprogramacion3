@@ -1,12 +1,26 @@
 import React, { Component } from 'react'
 import { Text, StyleSheet, View } from 'react-native'
+import { NavigationContainer } from '@react-navigation/native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
- class Menu extends Component {
+
+import Home from '../screens/Home';
+import Login from '../screens/Login';
+import Register from '../screens/Register';
+ 
+const Drawer = createDrawerNavigator();
+
+class Menu extends Component {
     render() {
         return (
-            <View>
-                <Text> textInComponent </Text>
-            </View>
+            
+            <NavigationContainer>
+                <Drawer.Navigator>
+                    <Drawer.Screen name="Home" component={() => <Home />} />
+                    <Drawer.Screen name="Login" component={() => <Login />} />
+                    <Drawer.Screen name="Register" component={() => <Register />} />
+                </Drawer.Navigator>
+            </NavigationContainer>
         )
     }
 }

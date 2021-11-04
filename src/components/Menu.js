@@ -18,19 +18,18 @@ class Menu extends Component {
     constructor(props) {
         super(props);
             this.state = {
-
+               
             }
     }
-
-
+  
     render() {
         return (
             
             <NavigationContainer>
                 <Drawer.Navigator>
                     <Drawer.Screen name="Home" component={() => <Home />} />
-                    <Drawer.Screen name="Login" component={() => <Login />} />
-                    <Drawer.Screen name="Register" component={() => <Register />} />
+                    <Drawer.Screen name="Login" component={() => <Login  />} />
+                    <Drawer.Screen name="Register" component={() => <Register  />} />
                     <Drawer.Screen name="Profile" component={() => <Profile />} />
                 </Drawer.Navigator>
             </NavigationContainer>

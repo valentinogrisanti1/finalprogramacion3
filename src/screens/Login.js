@@ -1,7 +1,22 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, TextInput, TouchableOpacity, Image } from 'react-native'
+import { 
+     Text,
+     StyleSheet,
+     View,
+     TextInput,
+     TouchableOpacity,
+     Image } 
+     from 'react-native'
 
  class Login extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            email: "",
+            password: "",
+        }
+    }
+
     render() {
         return (
             <View>        
@@ -15,18 +30,21 @@ import { Text, StyleSheet, View, TextInput, TouchableOpacity, Image } from 'reac
                         onChangeText={text => this.setState({ email: text })}
                         placeholder= 'email'
                         keyboardType= 'email-address'
+                        value= {this.state.email}
                     />
                 <TextInput style={styles.lugar}
                        onChangeText={(text) => this.setState({ password: text })}
                        placeholder="password"
                        keyboardType="email-address"
                        secureTextEntry={true}
+                       value= {this.state.password}
                     />
                     <TouchableOpacity  
-                    style={styles.button}
+                    style={styles.button}  
+                    onPress={() => this.props.login(this.state.email, this.state.password)}
 
                     >
-                        <Text style= {styles.textButton} >REGISTRAR</Text>
+                        <Text style= {styles.textButton} >LOGIN</Text>
                     </TouchableOpacity>
                 </View>      
                

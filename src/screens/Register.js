@@ -3,6 +3,13 @@ import { Text, StyleSheet, View, TextInput, TouchableOpacity, Image } from 'reac
 
 
  class Register extends Component {
+     constructor(props) {
+         super(props);
+         this.state = {
+             email: "",
+             passwors: "",
+         }
+     }
     render() {
         return (
             <View>
@@ -16,6 +23,7 @@ import { Text, StyleSheet, View, TextInput, TouchableOpacity, Image } from 'reac
                         onChangeText={text => this.setState({ email: text })}
                         placeholder= 'email'
                         keyboardType= 'email-address'
+                        value= {this.state.email}
                     />
                       <TextInput style={styles.lugar}
                         placeholder= 'username'
@@ -25,8 +33,9 @@ import { Text, StyleSheet, View, TextInput, TouchableOpacity, Image } from 'reac
                     <TextInput style={styles.lugar}
                        onChangeText={(text) => this.setState({ password: text })}
                        placeholder="password"
-                       keyboardType="email-address"
+                       keyboardType="password"
                        secureTextEntry={true}
+                       value= {this.state.password}
                     />
                     <TouchableOpacity  
                     style={styles.button}

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View } from 'react-native'
+import { Text, StyleSheet, View, Image } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
@@ -8,6 +8,8 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import Home from '../screens/Home';
 import Login from '../screens/Login';
 import Register from '../screens/Register';
+import Profile from '../screens/Profile';
+
  
 const Drawer = createMaterialTopTabNavigator();
 
@@ -29,6 +31,7 @@ class Menu extends Component {
                     <Drawer.Screen name="Home" component={() => <Home />} />
                     <Drawer.Screen name="Login" component={() => <Login />} />
                     <Drawer.Screen name="Register" component={() => <Register />} />
+                    <Drawer.Screen name="Profile" component={() => <Profile />} />
                 </Drawer.Navigator>
             </NavigationContainer>
         )

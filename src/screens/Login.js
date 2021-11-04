@@ -1,10 +1,15 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, TextInput, TouchableOpacity } from 'react-native'
+import { Text, StyleSheet, View, TextInput, TouchableOpacity, Image } from 'react-native'
 
  class Login extends Component {
     render() {
         return (
-            <View>
+            <View>        
+               <Image
+                 style={styles.imagen} 
+                 source={require('../../assets/logoTexto.png')}
+                 resizeMode='center'
+                />
                <View style={styles.contenedor}>
                     <TextInput style={styles.lugar}
                         onChangeText={text => this.setState({ email: text })}
@@ -48,17 +53,21 @@ const styles = StyleSheet.create({
         margin: 5,
     },
     button: {
-        backgroundColor: "#28a745",
+        backgroundColor: "#fde79e",
         paddingHorizontal: 10,
         paddingVertical: 6,
         textAlign: "center",
         borderRadius: 4,
         borderWidth: 1,
         borderStyle: "solid",
-        borderColor: "#28a745",
+        borderColor: "#fde79e",
       },
       textButton: {
-        color: "#fff",
+        color: "black",
+      },
+      imagen: {
+        height:250,
+        borderRadius: 15,  
       },
 })
 

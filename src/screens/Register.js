@@ -7,9 +7,12 @@ import { Text, StyleSheet, View, TextInput, TouchableOpacity, Image } from 'reac
          super(props);
          this.state = {
              email: "",
-             passwors: "",
+             userName:'',
+             password: "",
          }
-     }
+        
+     } 
+
     render() {
         return (
             <View>
@@ -37,14 +40,13 @@ import { Text, StyleSheet, View, TextInput, TouchableOpacity, Image } from 'reac
                        secureTextEntry={true}
                        value= {this.state.password}
                     />
-                    <TouchableOpacity  
-                    style={styles.button}
-
-                    >
-
-                        <Text style= {styles.textButton} >REGISTRAR</Text>
-
+                    <TouchableOpacity style={styles.button} 
+                        onPress={()=>this.props.register(this.state.email, this.state.password)}>
+                            <Text style={styles.textButton}>
+                                Registrarse
+                            </Text>    
                     </TouchableOpacity>
+                  
                 </View>
             
             </View>

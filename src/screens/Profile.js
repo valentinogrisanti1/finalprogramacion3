@@ -2,11 +2,17 @@ import React, { Component } from 'react'
 import { Text, StyleSheet, View, TouchableOpacity} from 'react-native'
 
  class Profile extends Component {
+    constructor(props) {
+        super(props);
+            this.state = {
+                
+            }
+    }
     render() {
         return (
             <View>
                 <Text> PERFIL </Text>
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity style={styles.button} onPress={()=>this.props.logout()}>
                     <Text>LogOut </Text>
                 </TouchableOpacity>
             </View>

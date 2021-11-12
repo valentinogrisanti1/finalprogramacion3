@@ -2,9 +2,7 @@ import React, { Component } from 'react'
 import { Text, StyleSheet, View, Image } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-
-
-
+import Post from '../screens/crearPost'
 import Home from '../screens/Home';
 import Login from '../screens/Login';
 import Register from '../screens/Register';
@@ -21,9 +19,21 @@ class Menu extends Component {
             this.state = {
                 errorMessage:'',
                 errorCode:'',
+                logueado: false,
+                user: '',
             }
     }
-    register(email, password){
+componentDidMount(){
+    auth.onAuthStateChanged(usuario =>{
+        if (usuario){
+            this.setState({
+                logueado: true,
+                user: usuario
+            })
+        }
+    })
+}
+register(email, password){
         auth.createUserWithEmailAndPassword(email, password)
         .then( () => {
             console.log('Registrado');
@@ -36,17 +46,45 @@ class Menu extends Component {
             })
         })
 }
+login (email, password){
+    auth.signInWithEmailAndPassword (email, password)
+    .then(respuesta => {
+        this.setState({
+            logueado: true,
+            user: respuesta.user
+        })
+    })
+}
+logout (){
+    auth.signOut ()
+    .then(()=>{
+        this.setState({
+            user: '',
+            logueado: false
+        })
+    })
+}
+
 
     render() {
         return (
             
             <NavigationContainer>
-                <Drawer.Navigator>
-                    <Drawer.Screen name="Home" component={() => <Home />} />
-                    <Drawer.Screen name="Login" component={() => <Login  />} />
-                    <Drawer.Screen name="Register" component={() => <Register  />} />
-                    <Drawer.Screen name="Profile" component={() => <Profile />} />
-                </Drawer.Navigator>
+                {this.state.logueado ?(
+<Drawer.Navigator>
+ <Drawer.Screen name="Home" component={() => <Home />} />
+ <Drawer.Screen name="Profile" component={() => <Profile logout={()=>this.logout()}/>} />
+ <Drawer.Screen name="Post" component={(drawerProps) => <Post drawerProps={drawerProps}/>} />
+</Drawer.Navigator>
+                ): (
+                    <Drawer.Navigator>
+                    <Drawer.Screen name="Login" component={() => <Login login={(email, password)=>this.login(email, password)}/>} />
+                    <Drawer.Screen name="Register" component={() => <Register register={(email, password)=>this.register(email, password)}/>} />
+                    
+                   </Drawer.Navigator>  
+
+                )}
+               
             </NavigationContainer>
         )
     }

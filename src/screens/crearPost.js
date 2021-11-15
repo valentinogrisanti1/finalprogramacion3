@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
-import { Text, View, TextInput, TouchableOpacity, StyleSheet } from 'react-native'
+import { Text, View, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import MyCamera from "../components/MyCamera";
 import { auth, db } from '../firebase/config';
 
-export default class crearPost extends Component {
+ class crearPost extends Component {
     constructor(props) {
         super(props);
             this.state = {
+                titulo: '',
                foto: '',
                comentario: '',
                mostrarCamara: true,
@@ -17,18 +19,41 @@ agregarPost(){
     db.collection('posteos').add({
         owner: auth.currentUser.email,
         descripcion: this.state.descripcion,
-        createdAt: Date.now()
+        createdAt: Date.now(),
+        likes: [],
+        comments: [],
+        titulo: this.state.titulo,
     }).then(()=>{
         console.log('creado')
         this.setState({
-            descripcion: ''
+            descripcion: '',
+            titulo: '',
+
         })
         this.props.drawerProps.navigation.navigate('Home')
     })
 }
+
+    subirFoto(foto){
+        this.setState({
+            foto: foto,
+            mostrarCamara: false,
+        })
+    }
+
+
     render() {
-        return (
-            <View>
+        return this.state.mostrarCamara ? (
+            <MyCamera onImageUpload={(foto) => this.subirFoto (foto)} />
+        ) : (
+                 <View>
+                <TextInput
+                style={styles.input}
+                placeholder= 'Titulo'
+                keyboardType= 'default'
+                onChangeText= {(text) => this.setState({titulo: text})}
+                value= { this.state.titulo}
+                />
                 <TextInput style={styles.lugar}
                        onChangeText={(text) => this.setState({ descripcion: text })}
                        placeholder="descripcion"
@@ -39,7 +64,8 @@ agregarPost(){
                     />
                     <TouchableOpacity  
                     style={styles.button}  
-                    onPress={() => this.agregarPost()}>
+                    onPress={() => this.agregarPost()}
+                    >
                         <Text style= {styles.textButton}> Agregar Post</Text>
                     </TouchableOpacity>
             </View>
@@ -81,3 +107,6 @@ const styles = StyleSheet.create({
         borderRadius: 15,  
       },
     })
+
+
+export default crearPost;

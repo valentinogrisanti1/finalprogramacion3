@@ -13,10 +13,10 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
      }
 
      componentDidMount(){
-         this.recivirLikes();
+         this.recibirLikes();
      }
 
-     recivirLikes() {
+     recibirLikes() {
          let likes = this.props.postData.data.likes;
          if(likes) {
              this.setState({

@@ -149,11 +149,17 @@ import firebase from 'firebase';
                                     </TouchableOpacity>
                                     
                                 
+                                    {
+                                this.props.postData.data.comentarios ?
                                 <FlatList
                                 data={this.props.postData.data.comentarios}
                                 keyExtractor={comentarios => comentarios.createdAt.toString ()}
                                 renderItem={ ({item})=> <Text> {item.autor}: {item.comentarios}</Text> }
-                                />
+                                /> :
+                                <Text>No comments</Text>
+                            }
+
+
 
                     <View>
                         <TextInput 
@@ -161,8 +167,9 @@ import firebase from 'firebase';
                             placeholder="Comentar"
                             keyboardType="default"
                             multiline
-                            onChangeText={texto => this.setState({comentarios: texto})}
                             value={this.state.comentarios}
+                            onChangeText={texto => this.setState({comentarios: texto})}
+                            
                         />
                         <TouchableOpacity 
                             style={styles.button}

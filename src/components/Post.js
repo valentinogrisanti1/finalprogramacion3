@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, Modal } from 'react-native'
+import { Text, StyleSheet, View, Modal, Image } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
  class Post extends Component {
@@ -76,6 +76,10 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
     render() {
         return (
             <View style={styles.container}>
+                <Image
+                    style={{width: '100%', height: 250}}
+                    source= {{uri: this.props.postData.data.photo}}
+                />
                 <Text>{this.props.postData.data.user}</Text>
                 <Text>{this.props.postData.data.decription}</Text>
                 <TouchableOpacity onPress={() => this.abrirModal()}>

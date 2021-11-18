@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Text, StyleSheet, View, Modal, Image } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { auth, db } from '../firebase/config';
+import firebase from 'firebase';
 
  class Post extends Component {
      constructor(props){
@@ -18,9 +20,14 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
      recibirLikes() {
          let likes = this.props.postData.data.likes;
-         if(likes) {
+         if (likes) {
              this.setState({
-                 liked: true,
+                 likes: likes.length
+             })
+         }
+         if (likes.includes(auth.currentUser.email)) {
+             this.setState({
+                 liked: true
              })
          }
      }
@@ -29,7 +36,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
          let post = db.collection("posteos").doc(this.props.postData.id);
 
          post.update({
-             likes: firebase.firestore.fieldValue.arrayUnion(auth.currentUser.email)
+             likes: firebase.firestore.FieldValue.arrayUnion(auth.currentUser.email)
          })
          .then(() => {
              this.setState({
@@ -39,7 +46,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
              console.log('esta likeado');
          })
          .catch((error) => {
-            console.error("Error updating document: ", error); 
+            console.error("Error subiendo el archivo: ", error); 
          })
      }
 
@@ -47,7 +54,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
          let post = db.collection("posteos").doc(this.props.postData.id);
 
          post.update({
-             likes: firebase.firestore.fieldValue.arrayUnion(auth.currentUser.email)
+             likes: firebase.firestore.FieldValue.arrayRemove(auth.currentUser.email)
          })
          .then(() => {
              this.setState({
@@ -57,7 +64,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
              console.log('delikeado');
          })
          .catch((error) => {
-            console.error("Error updating document: ", error);
+            console.error("Error subiendo el archivo: ", error);
         });
      }
 

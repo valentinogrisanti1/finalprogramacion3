@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, Modal, Image } from 'react-native'
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Text, StyleSheet, View, Modal, Image, TouchableOpacity, FlatList, TextInput } from 'react-native'
+
 import { auth, db } from '../firebase/config';
 import firebase from 'firebase';
 
@@ -11,12 +11,19 @@ import firebase from 'firebase';
              likes: 0,
              liked: false,
              mostrarModal: false,
+             comentarios: ''
          }
      }
 
      componentDidMount(){
          this.recibirLikes();
-     }
+         if(this.props.postData.data.likes){
+            this.setState({
+            likes:this.props.postData.data.likes.length,
+            liked: this.props.postData.data.likes.includes(auth.currentUser.email),  
+        })
+    }}
+     
 
      recibirLikes() {
          let likes = this.props.postData.data.likes;
@@ -80,9 +87,28 @@ import firebase from 'firebase';
          })
      }
 
-    render() {
+     guardarComentario(){
+        console.log ('Guardar comentario')
+        let unComentario ={
+            createdAt: Date.now (),
+            autor: auth.currentUser.email,
+            comentarios: this.state.comentarios
+        }
+        db.collection('posteos').doc(this.props.postData.id).update({
+            comentario: firebase.firestore.FieldValue.arrayUnion(unComentario)
+        })
+        .then(()=>{
+            this.setState({
+                comentarios: ''
+            })
+        })
+     }
+    
+     render() {
         return (
             <View style={styles.container}>
+
+             <Text>Usuario {this.props.postData.data.owner} </Text>  
                 <Image
                     style={{width: '100%', height: 250}}
                     source= {{uri: this.props.postData.data.photo}}
@@ -92,6 +118,9 @@ import firebase from 'firebase';
                 <TouchableOpacity onPress={() => this.abrirModal()}>
                     <Text>LIKES: {this.state.likes}</Text>
                 </TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={()=>this.abrirModal()}>
+                <Text>Dejar un cometario</Text>
+            </TouchableOpacity>
                 {
                     ! this.state.liked ?
                         <TouchableOpacity style={styles.button} 
@@ -105,9 +134,8 @@ import firebase from 'firebase';
                         </TouchableOpacity>
                 }
 
-                {
-                    ! this.state.mostrarModal ?
-                        null
+                { ! this.state.mostrarModal ?
+                       null
                         :
                             <Modal
                                 style={styles.modalContainer}
@@ -119,9 +147,31 @@ import firebase from 'firebase';
                                     <TouchableOpacity onPress= {() => this.cerrarModal()} style={styles.closeModal}>
                                         <Text>X</Text>
                                     </TouchableOpacity>
-                                    <Text style={styles.modalText}> soy un modal</Text>
+                                    
                                 
+                                <FlatList
+                                data={this.props.postData.data.comentarios}
+                                keyExtractor={comentarios => comentarios.createdAt.toString ()}
+                                renderItem={ ({item})=> <Text> {item.autor}: {item.comentarios}</Text> }
+                                />
+
+                    <View>
+                        <TextInput 
+                            style={styles.textButton}
+                            placeholder="Comentar"
+                            keyboardType="default"
+                            multiline
+                            onChangeText={texto => this.setState({comentarios: texto})}
+                            value={this.state.comentarios}
+                        />
+                        <TouchableOpacity 
+                            style={styles.button}
+                            onPress={()=>{this.guardarComentario()}}>
+                            <Text style={styles.textButton}>Guadar comentario</Text>
+                        </TouchableOpacity>
+                    </View>
                             </Modal>
+                           
                 }
             </View>
         )

@@ -72,16 +72,18 @@ import { storage } from "../firebase/config";
                         </View>
                     </>
                 ) : (
-                    <>
+                   
+                    <View style={{ flex: 1 ,width: "100%" }}>
                         <Camera
-                            style={{ flex: 1, width: "100%" }}
+                            style={{ flex: 1 ,width: "100%" }}
                             type={Camera.Constants.Type.front}
                             ref={(cam) => (this.camera = cam)}
                         />
                         <TouchableOpacity onPress={() => this.sacarFoto()}>
                             <Text>Dispa</Text>
                         </TouchableOpacity>
-                    </>
+                    </View>
+                    
                 )}
             </>
         );

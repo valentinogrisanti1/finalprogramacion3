@@ -96,12 +96,12 @@ import firebase from 'firebase';
                     ! this.state.liked ?
                         <TouchableOpacity style={styles.button} 
                         onPress={() => this.liquearPost()}>
-                            <Text style={styles.textButton}> lIKEAR</Text>
+                            <Text style={styles.textButton}> LIKE</Text>
                         </TouchableOpacity>
                         :
                         <TouchableOpacity style={styles.button} 
                         onPress={() => this.deslikearPost()}>
-                            <Text style={styles.textButton}> DESlIKEAR</Text>
+                            <Text style={styles.textButton}> DESLIKE</Text>
                         </TouchableOpacity>
                 }
 

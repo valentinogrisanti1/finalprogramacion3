@@ -44,6 +44,7 @@ agregarPost(){
 
     render() {
         return this.state.mostrarCamara ? (
+            
             <MyCamera onImageUpload={(foto) => this.subirFoto (foto)} />
         ) : (
                  <View>

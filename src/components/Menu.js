@@ -33,8 +33,13 @@ componentDidMount(){
         }
     })
 }
-register(email, password){
+register(email, password, userName){
         auth.createUserWithEmailAndPassword(email, password)
+        .then( res => {
+            res.user.updateProfile({
+                displayName: userName
+            })
+        })
         .then( () => {
             console.log('Registrado');
         })
@@ -74,12 +79,12 @@ logout (){
 <Drawer.Navigator>
  <Drawer.Screen name="Home" component={() => <Home />} />
  <Drawer.Screen name="Profile" component={() => <Profile logout={()=>this.logout()}/>} />
- <Drawer.Screen name="Post" component={(drawerProps) => <Post drawerProps={drawerProps}/>} />
+ <Drawer.Screen options={{lazy: true}} name="Post" component={(drawerProps) => <Post drawerProps={drawerProps}/>} />
 </Drawer.Navigator>
                 ): (
                     <Drawer.Navigator>
                     <Drawer.Screen name="Login" component={() => <Login login={(email, password)=>this.login(email, password)}/>} />
-                    <Drawer.Screen name="Register" component={() => <Register register={(email, password)=>this.register(email, password)}/>} />
+                    <Drawer.Screen name="Register" component={() => <Register register={(email, password, userName)=>this.register(email, password, userName)}/>} />
                     
                    </Drawer.Navigator>  
 

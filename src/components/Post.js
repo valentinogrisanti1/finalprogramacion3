@@ -87,7 +87,7 @@ import firebase from 'firebase';
                     style={{width: '100%', height: 250}}
                     source= {{uri: this.props.postData.data.photo}}
                 />
-                <Text>{this.props.postData.data.user}</Text>
+                <Text>{this.props.postData.data.userName}</Text>
                 <Text>{this.props.postData.data.decription}</Text>
                 <TouchableOpacity onPress={() => this.abrirModal()}>
                     <Text>LIKES: {this.state.likes}</Text>

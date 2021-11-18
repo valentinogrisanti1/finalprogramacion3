@@ -41,7 +41,7 @@ import { Text, StyleSheet, View, TextInput, TouchableOpacity, Image } from 'reac
                        value= {this.state.password}
                     />
                     <TouchableOpacity style={styles.button} 
-                        onPress={()=>this.props.register(this.state.email, this.state.password)}>
+                        onPress={()=>this.props.register(this.state.email, this.state.password, )}>
                             <Text style={styles.textButton}>
                                 Registrarse
                             </Text>    

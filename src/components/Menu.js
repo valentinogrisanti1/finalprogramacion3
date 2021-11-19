@@ -8,6 +8,7 @@ import Login from '../screens/Login';
 import Register from '../screens/Register';
 import Profile from '../screens/Profile';
 import { auth } from '../firebase/config';
+import Icon  from 'react-native-vector-icons/FontAwesome';
 
  
 const Drawer = createMaterialTopTabNavigator();
@@ -36,7 +37,7 @@ componentDidMount(){
 register(email, password, userName){
         auth.createUserWithEmailAndPassword(email, password)
         .then( res => {
-            res.user.updateProfile({
+            auth.currentUser.updateProfile({
                 displayName: userName
             })
         })
@@ -76,13 +77,15 @@ logout (){
             
             <NavigationContainer>
                 {this.state.logueado ?(
-<Drawer.Navigator>
+<Drawer.Navigator screenOptions={({route}) => ({
+            tabBarIcon: ({color}) => screenOptions(route, color),
+          })}>
  <Drawer.Screen name="Home" component={() => <Home />} />
  <Drawer.Screen name="Profile" component={() => <Profile logout={()=>this.logout()}/>} />
  <Drawer.Screen options={{lazy: true}} name="Post" component={(drawerProps) => <Post drawerProps={drawerProps}/>} />
 </Drawer.Navigator>
                 ): (
-                    <Drawer.Navigator>
+                    <Drawer.Navigator >
                     <Drawer.Screen name="Login" component={() => <Login login={(email, password)=>this.login(email, password)}/>} />
                     <Drawer.Screen name="Register" component={() => <Register register={(email, password, userName)=>this.register(email, password, userName)}/>} />
                     
@@ -96,6 +99,30 @@ logout (){
 }
 
 const styles = StyleSheet.create({})
-
+const screenOptions = (route, color) => {
+    let iconName;
+  
+    switch (route.name) {
+      case 'Home':
+        iconName = 'home';
+        break;
+      case 'Profile':
+        iconName = 'user';
+        break;
+      case 'Post':
+        iconName = 'plus';
+        break;
+        case 'Login':
+        iconName = 'login';
+        case 'Register':
+        iconName = 'register';
+        break;
+        break;
+      default:
+        break;
+    }
+  
+    return <Icon name={iconName} color={color} size={24} />;
+  };
 
 export default Menu;

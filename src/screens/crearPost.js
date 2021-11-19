@@ -17,11 +17,9 @@ import { auth, db } from '../firebase/config';
 
 agregarPost(){
     db.collection('posteos').add({
-        owner: auth.currentUser.email,
+        owner: auth.currentUser.displayName,
         descripcion: this.state.descripcion,
         createdAt: Date.now(),
-        likes: [],
-        comments: [],
         titulo: this.state.titulo,
     }).then(()=>{
         console.log('creado')

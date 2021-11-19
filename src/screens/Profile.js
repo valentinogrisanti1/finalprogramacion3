@@ -13,7 +13,7 @@ import { auth } from '../firebase/config';
         return (
             <View>
                 <Text style={styles.infoLogin}> ESTE ES TU PERFIL! </Text>
-                <Text style={styles.infoLogin}>Bienvenido: {auth.currentUser.email}</Text>
+                <Text style={styles.infoLogin}>Bienvenido: {auth.currentUser.displayName}</Text>
                 <Text style={styles.infoLogin}>Tu usuario fue creado el: {auth.currentUser.metadata.creationTime}</Text>
                 <Text style={styles.infoLogin}>La ultima vez que te logueaste a GRUMIT: {auth.currentUser.metadata.lastSignInTime}</Text>
                 <TouchableOpacity style={styles.button} onPress={()=>this.props.logout()}>

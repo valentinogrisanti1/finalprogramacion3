@@ -11,33 +11,27 @@ import firebase from 'firebase';
              likes: 0,
              liked: false,
              mostrarModal: false,
-             comentarios: ''
+             comentarios: '',
+             listaComentarios: null
          }
      }
 
      componentDidMount(){
-         this.recibirLikes();
+
          if(this.props.postData.data.likes){
             this.setState({
             likes:this.props.postData.data.likes.length,
             liked: this.props.postData.data.likes.includes(auth.currentUser.email),  
         })
-    }}
+    } 
+        if(this.props.postData.data.comentario){
+            this.setState({
+                listaComentarios:this.props.postData.data.comentario,
+            })
+        }
+}
      
 
-     recibirLikes() {
-         let likes = this.props.postData.data.likes;
-         if (likes) {
-             this.setState({
-                 likes: likes.length
-             })
-         }
-         if (likes.includes(auth.currentUser.email)) {
-             this.setState({
-                 liked: true
-             })
-         }
-     }
 
      liquearPost() {
          let post = db.collection("posteos").doc(this.props.postData.id);
@@ -99,7 +93,8 @@ import firebase from 'firebase';
         })
         .then(()=>{
             this.setState({
-                comentarios: ''
+                comentarios: '',
+                listaComentarios: this.props.postData.data.comentario,
             })
         })
      }
@@ -150,10 +145,11 @@ import firebase from 'firebase';
                                     
                                 
                                     {
-                                this.props.postData.data.comentarios ?
+                                this.state.listaComentarios ?
+                                
                                 <FlatList
-                                data={this.props.postData.data.comentarios}
-                                keyExtractor={comentarios => comentarios.createdAt.toString ()}
+                                data={this.state.listaComentarios}
+                                keyExtractor={(comentarios) => comentarios.createdAt.toString ()}
                                 renderItem={ ({item})=> <Text> {item.autor}: {item.comentarios}</Text> }
                                 /> :
                                 <Text>No comments</Text>
@@ -198,17 +194,19 @@ const styles = StyleSheet.create({
         borderRadius: 5,
     },
     button: {
-        backgroundColor: "#28a745",
+        backgroundColor: "#fde79e",
+        backgroundColor: "#",
         paddingHorizontal: 10,
         paddingVertical: 6,
         textAlign: "center",
         borderRadius: 4,
         borderWidth: 1,
         borderStyle: "solid",
-        borderColor: "#28a745",
+        backgroundColor: "#fde79e",
+        borderColor: "#fde79e",
     },
     textButton: {
-        color: "#fff",
+        color: "black",
     },
     modalContainer: {
         width:'100%',  

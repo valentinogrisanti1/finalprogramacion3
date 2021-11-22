@@ -60,6 +60,13 @@ login (email, password){
             user: respuesta.user
         })
     })
+    .catch( error => {
+        console.log(error);
+        this.setState({
+            errorMessage: error.message,
+            errorCode: error.code
+        })
+    })
 }
 logout (){
     auth.signOut ()
@@ -86,8 +93,8 @@ logout (){
 </Drawer.Navigator>
                 ): (
                     <Drawer.Navigator >
-                    <Drawer.Screen name="Login" component={() => <Login login={(email, password)=>this.login(email, password)}/>} />
-                    <Drawer.Screen name="Register" component={() => <Register register={(email, password, userName)=>this.register(email, password, userName)}/>} />
+                    <Drawer.Screen name="Login" component={() => <Login login={(email, password)=>this.login(email, password)} error={this.state.errorMessage}/>} />
+                    <Drawer.Screen name="Register" component={() => <Register register={(email, password, userName)=>this.register(email, password, userName)} error={this.state.errorMessage}/>} />
                     
                    </Drawer.Navigator>  
 

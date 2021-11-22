@@ -17,7 +17,7 @@ class Home extends Component {
     }
 
     mostrarPost() {
-        db.collection('posteos').onSnapshot((docs) => {
+        db.collection('posteos').orderBy('createdAt', 'desc').onSnapshot((docs) => {
             let posteos = []
             docs.forEach((doc) => {
                 posteos.push({
@@ -32,6 +32,7 @@ class Home extends Component {
     }
 
     render() {
+        console.log(this.state.posts)
         return (
             <View style={styles.container}>
                 <FlatList

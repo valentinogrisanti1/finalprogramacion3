@@ -51,6 +51,11 @@ import { storage } from "../firebase/config";
 
         })
     }
+    eliminarFoto(){
+        this.setState({
+            photo: '',
+        })
+    }
 
 
     render() {
@@ -66,7 +71,7 @@ import { storage } from "../firebase/config";
                             <TouchableOpacity onPress={() => this.guardarFoto()}>
                                 <Text>Aceptar</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity>
+                            <TouchableOpacity onPress={() => this.eliminarFoto()}>
                                 <Text>Cancelar</Text>
                             </TouchableOpacity>
                         </View>

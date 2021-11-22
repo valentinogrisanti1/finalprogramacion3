@@ -98,18 +98,28 @@ import firebase from 'firebase';
             })
         })
      }
+
+     borrarPost (){
+         db.collection('posteos').doc(this.props.postData.id).delete()
+     }
     
      render() {
+
         return (
             <View style={styles.container}>
-
+                {this.props.postData.data.owner == auth.currentUser.displayName ?
+               <TouchableOpacity onPress={() => this.borrarPost()}>
+               <Text>Borrar</Text>
+           </TouchableOpacity> 
+            : null}
+        
              <Text>Usuario {this.props.postData.data.owner} </Text>  
                 <Image
                     style={{width: '100%', height: 250}}
                     source= {{uri: this.props.postData.data.photo}}
                 />
                 <Text>{this.props.postData.data.userName}</Text>
-                <Text>{this.props.postData.data.decription}</Text>
+                <Text>{this.props.postData.data.descripcion}</Text>
                 <TouchableOpacity onPress={() => this.abrirModal()}>
                     <Text>LIKES: {this.state.likes}</Text>
                 </TouchableOpacity>
@@ -169,7 +179,8 @@ import firebase from 'firebase';
                         />
                         <TouchableOpacity 
                             style={styles.button}
-                            onPress={()=>{this.guardarComentario()}}>
+                            onPress={()=>{this.guardarComentario()}} 
+                            disabled={this.state.comentarios == '' ? true:false}>
                             <Text style={styles.textButton}>Guadar comentario</Text>
                         </TouchableOpacity>
                     </View>

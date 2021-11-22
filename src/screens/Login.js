@@ -39,7 +39,10 @@ import {
                        secureTextEntry={true}
                        value= {this.state.password}
                     />
+                    {this.props.error ? 
+                        <Text>{this.props.error}</Text> : null}
                     <TouchableOpacity  
+                     disabled={this.state.email == '' || this.state.password == '' ? true:false}
                     style={styles.button}  
                     onPress={() => this.props.login(this.state.email, this.state.password)}
 

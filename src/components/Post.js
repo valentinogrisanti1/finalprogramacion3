@@ -107,13 +107,14 @@ import firebase from 'firebase';
 
         return (
             <View style={styles.container}>
-                {this.props.postData.data.owner == auth.currentUser.displayName ?
-               <TouchableOpacity onPress={() => this.borrarPost()}>
-               <Text>Borrar</Text>
+            
+        
+             <Text>Nombre de usuario: {this.props.postData.data.owner} </Text>  
+             {this.props.postData.data.owner == auth.currentUser.displayName ?
+               <TouchableOpacity onPress={() => this.borrarPost()}  style={styles.button}>
+               <Text >Borrar post</Text>
            </TouchableOpacity> 
             : null}
-        
-             <Text>Usuario {this.props.postData.data.owner} </Text>  
                 <Image
                     style={{width: '100%', height: 250}}
                     source= {{uri: this.props.postData.data.photo}}
@@ -162,7 +163,7 @@ import firebase from 'firebase';
                                 keyExtractor={(comentarios) => comentarios.createdAt.toString ()}
                                 renderItem={ ({item})=> <Text> {item.autor}: {item.comentarios}</Text> }
                                 /> :
-                                <Text>No comments</Text>
+                                <Text>Todavía no hay comentarios</Text>
                             }
 
 
@@ -187,6 +188,7 @@ import firebase from 'firebase';
                             </Modal>
                            
                 }
+                
             </View>
         )
     }

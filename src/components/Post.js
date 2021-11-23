@@ -85,7 +85,7 @@ import firebase from 'firebase';
         console.log ('Guardar comentario')
         let unComentario ={
             createdAt: Date.now (),
-            autor: auth.currentUser.email,
+            autor: auth.currentUser.displayName,
             comentarios: this.state.comentarios
         }
         db.collection('posteos').doc(this.props.postData.id).update({
@@ -110,6 +110,8 @@ import firebase from 'firebase';
             
         
              <Text>Nombre de usuario: {this.props.postData.data.owner} </Text>  
+             <Text style={styles.infoLogin}>El posteo fue creado el: 
+                {this.props.postData.data.createdAt}</Text> 
              {this.props.postData.data.owner == auth.currentUser.displayName ?
                <TouchableOpacity onPress={() => this.borrarPost()}  style={styles.button}>
                <Text >Borrar post</Text>

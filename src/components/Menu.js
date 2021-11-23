@@ -9,6 +9,7 @@ import Register from '../screens/Register';
 import Profile from '../screens/Profile';
 import { auth } from '../firebase/config';
 import Icon  from 'react-native-vector-icons/FontAwesome';
+import Buscador from '../screens/Buscador';
 
  
 const Drawer = createMaterialTopTabNavigator();
@@ -84,12 +85,13 @@ logout (){
             
             <NavigationContainer>
                 {this.state.logueado ?(
-<Drawer.Navigator screenOptions={({route}) => ({
+        <Drawer.Navigator screenOptions={({route}) => ({
             tabBarIcon: ({color}) => screenOptions(route, color),
           })}>
- <Drawer.Screen name="Home" component={() => <Home />} />
- <Drawer.Screen name="Profile" component={() => <Profile logout={()=>this.logout()}/>} />
- <Drawer.Screen options={{lazy: true}} name="Post" component={(drawerProps) => <Post drawerProps={drawerProps}/>} />
+            <Drawer.Screen name="Home" component={() => <Home />} />
+            <Drawer.Screen name="Profile" component={() => <Profile logout={()=>this.logout()}/>} />
+            <Drawer.Screen options={{lazy: true}} name="Post" component={(drawerProps) => <Post drawerProps={drawerProps}/>} />
+            <Drawer.Screen name="Buscador" options={{ headerShown: false }} component={() => <Buscador />} />
 </Drawer.Navigator>
                 ): (
                     <Drawer.Navigator >

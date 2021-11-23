@@ -109,8 +109,6 @@ import firebase from 'firebase';
         return (
             <View style={styles.container}>
              <Text>Nombre de usuario: {this.props.postData.data.owner} </Text>  
-             <Text style={styles.infoLogin}>El posteo fue creado el: 
-                {this.props.postData.data.createdAt}</Text> 
              {this.props.postData.data.owner == auth.currentUser.displayName ?
                <TouchableOpacity onPress={() => this.borrarPost()}  style={styles.button}>
                <Text >Borrar post</Text>

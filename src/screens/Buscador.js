@@ -44,7 +44,8 @@ class Buscador extends Component {
                 onChangeText={text => this.setState({ buscar: text})}
                 value= {this.state.buscar}
                 />
-                <TouchableOpacity  style={styles.button} onPress={()=> this.onSubmit()}>
+                <TouchableOpacity  style={styles.button} onPress={()=> this.onSubmit()}
+                disabled={this.state.buscar == '' ? true:false}>
                     <Text >Buscar</Text>
                 </TouchableOpacity>
             </View>

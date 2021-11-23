@@ -18,7 +18,7 @@ class Buscador extends Component {
           db.collection('posteos').where('owner', '==', this.state.buscar).onSnapshot(
               docs => {
                   let posteos = [];
-                  docs.forEach(doc =>{
+                  docs.forEach((doc) =>{
                       posteos.push({
                         id: doc.id,
                         data: doc.data (),
@@ -54,7 +54,7 @@ class Buscador extends Component {
             <FlatList
                 data={this.state.posteosUsuario}
                 keyExtractor={posteo => posteo.id}
-                renderItem={({item}) => <Post post={item} />} />
+                renderItem={({item}) => <Post  postData={item} />} />
             :
             <Text>No hay resultados</Text>
             }

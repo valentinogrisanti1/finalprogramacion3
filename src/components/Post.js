@@ -4,6 +4,7 @@ import { Text, StyleSheet, View, Modal, Image, TouchableOpacity, FlatList, TextI
 import { auth, db } from '../firebase/config';
 import firebase from 'firebase';
 
+
  class Post extends Component {
      constructor(props){
          super(props)
@@ -107,8 +108,6 @@ import firebase from 'firebase';
 
         return (
             <View style={styles.container}>
-            
-        
              <Text>Nombre de usuario: {this.props.postData.data.owner} </Text>  
              <Text style={styles.infoLogin}>El posteo fue creado el: 
                 {this.props.postData.data.createdAt}</Text> 

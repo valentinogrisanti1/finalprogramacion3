@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, Modal, Image, TouchableOpacity, FlatList, TextInput } from 'react-native'
+import { Text, StyleSheet, View, Modal, Image, TouchableOpacity, FlatList, TextInput,} from 'react-native'
 
 import { auth, db } from '../firebase/config';
 import firebase from 'firebase';
+
+import Icon  from 'react-native-vector-icons/FontAwesome';
 
 
  class Post extends Component {
@@ -111,35 +113,49 @@ import firebase from 'firebase';
              <Text  style={styles.nombre}> {this.props.postData.data.owner} </Text>  
              <Text style={styles.infoLogin}>El posteo fue creado el: 
                 {this.props.postData.data.createdAt}</Text> 
-             {this.props.postData.data.owner == auth.currentUser.displayName ?
-               <TouchableOpacity onPress={() => this.borrarPost()}  style={styles.borrar}>
-               <Text >Borrar post</Text>
-           </TouchableOpacity> 
-            : null}
+           
                 <Image
                     style={{width: '100%', height: 250, borderRadius: '10px',}}
                     source= {{uri: this.props.postData.data.photo}}
                 />
                 <Text>{this.props.postData.data.userName}</Text>
-                <Text>{this.props.postData.data.descripcion}</Text>
+                <Text style={styles.descripcion}>{this.props.postData.data.descripcion}</Text>
                 <TouchableOpacity onPress={() => this.abrirModal()}>
                     <Text style={styles.meGusta}>{this.state.likes} Me gustas</Text>
                 </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={()=>this.abrirModal()}>
-                <Text>Dejar un cometario</Text>
+
+                <View style={styles.botones}>
+
+                {this.props.postData.data.owner == auth.currentUser.displayName ?
+               <TouchableOpacity onPress={() => this.borrarPost()}  style={styles.borrar}>
+               <Text >  
+                    <Icon name="trash" size={30} color="#900" />
+               </Text>
+           </TouchableOpacity> 
+            : null}
+
+            <TouchableOpacity style={styles.comentario} onPress={()=>this.abrirModal()}>
+                <Text>
+                    <Icon name="comments" size={30} color="black" />
+                </Text>
             </TouchableOpacity>
                 {
                     ! this.state.liked ?
                         <TouchableOpacity style={styles.like} 
                         onPress={() => this.liquearPost()}>
-                            <Text style={styles.textButton}> LIKE</Text>
+                            <Text style={styles.textButton}> 
+                                <Icon name="thumbs-up" size={30} color="black" />
+                            </Text>
                         </TouchableOpacity>
                         :
                         <TouchableOpacity style={styles.deslike} 
                         onPress={() => this.deslikearPost()}>
-                            <Text style={styles.textButton}> DESLIKE</Text>
+                            <Text style={styles.textButton}> 
+                                <Icon name="thumbs-down" size={30} color="black" />
+                            </Text>
                         </TouchableOpacity>
                 }
+                </View>
 
                 { ! this.state.mostrarModal ?
                        null
@@ -269,6 +285,7 @@ const styles = StyleSheet.create({
         borderStyle: "solid",
         backgroundColor: "green",
         borderColor: "green",
+     
     },
     deslike: {
         backgroundColor: "red",
@@ -281,11 +298,34 @@ const styles = StyleSheet.create({
         borderStyle: "solid",
         backgroundColor: "orange",
         borderColor: "orange",
+        
+    },
+    comentario: {
+        backgroundColor: "#fde79e",
+        backgroundColor: "#",
+        paddingHorizontal: 10,
+        paddingVertical: 6,
+        textAlign: "center",
+        borderRadius: 10,
+        borderWidth: 1,
+        borderStyle: "solid",
+        backgroundColor: "#fde79e",
+        borderColor: "#fde79e",
+        
     },
     meGusta: {
         textAlign: "left",
-
+        marginVertical: 10
     },
+    descripcion: {
+    marginVertical: 10,
+    },
+    botones: {
+        flexDirection: "row",
+        justifyContent: "space-arround",
+        width: "100%",
+        
+    }
 })
 
 

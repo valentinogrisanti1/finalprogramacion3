@@ -42,7 +42,7 @@ import { Text, StyleSheet, View, TextInput, TouchableOpacity, Image } from 'reac
                        value= {this.state.password}
                     />
                     {this.props.error ? 
-                        <Text>{this.props.error}</Text> : null}
+                        <Text style={styles.error}>{this.props.error}</Text> : null}
                     <TouchableOpacity style={styles.button}
                     disabled={this.state.email == '' || this.state.user == '' || this.state.password == '' ? true:false} 
                         onPress={()=>this.props.register(this.state.email, this.state.password, this.state.user)}>
@@ -92,6 +92,9 @@ const styles = StyleSheet.create({
         height:250,
         borderRadius: 15,  
       },
+      error: {
+          color: "red",
+      }
 })
 
 

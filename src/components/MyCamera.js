@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Camera } from "expo-camera";
-import { Text, TouchableOpacity, View, Image } from 'react-native';
+import { Text, TouchableOpacity, View, Image, StyleSheet} from 'react-native';
 import { storage } from "../firebase/config";
 
  class MyCamera extends Component {
@@ -42,7 +42,7 @@ import { storage } from "../firebase/config";
 
             ref.put(image).then(() => {
                 ref.getDownloadURL(). then ((url) => {
-                    this.props.onImageUpload(url);
+                    this.props.subirFoto(url);
                     this.setState({
                         photo: "",
                     });
@@ -68,10 +68,10 @@ import { storage } from "../firebase/config";
                             source={{ uri: this.state.photo }}
                         />
                         <View>
-                            <TouchableOpacity onPress={() => this.guardarFoto()}>
+                            <TouchableOpacity  style={styles.aceptar} onPress={() => this.guardarFoto()}>
                                 <Text>Aceptar</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={() => this.eliminarFoto()}>
+                            <TouchableOpacity  style={styles.cancelar} onPress={() => this.eliminarFoto()}>
                                 <Text>Cancelar</Text>
                             </TouchableOpacity>
                         </View>
@@ -84,7 +84,7 @@ import { storage } from "../firebase/config";
                             type={Camera.Constants.Type.front}
                             ref={(cam) => (this.camera = cam)}
                         />
-                        <TouchableOpacity onPress={() => this.sacarFoto()}>
+                        <TouchableOpacity  style={styles.dispa} onPress={() => this.sacarFoto()}>
                             <Text>Dispa</Text>
                         </TouchableOpacity>
                     </View>
@@ -95,6 +95,41 @@ import { storage } from "../firebase/config";
         
     }
 }
+
+const styles = StyleSheet.create({
+    dispa: {
+        backgroundColor: "#fde79e",
+        paddingHorizontal: 10,
+        paddingVertical: 6,
+        textAlign: "center",
+        borderRadius: 4,
+        borderWidth: 1,
+        borderStyle: "solid",
+        borderColor: "#fde79e",
+    },
+    aceptar: {
+        backgroundColor: "green",
+        paddingHorizontal: 10,
+        paddingVertical: 6,
+        textAlign: "center",
+        // alignSelf: "flex-start",
+        borderRadius: 10,
+        borderWidth: 1,
+        borderStyle: "solid",
+        borderColor: "green",
+    },
+    cancelar: {
+        backgroundColor: "red",
+        paddingHorizontal: 10,
+        paddingVertical: 6,
+        textAlign: "center",
+        borderRadius: 10,
+        borderWidth: 1,
+        // alignSelf: "flex-end",
+        borderStyle: "solid",
+        borderColor: "red",
+    },
+})
 
 
 

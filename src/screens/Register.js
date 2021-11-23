@@ -16,6 +16,7 @@ import { Text, StyleSheet, View, TextInput, TouchableOpacity, Image } from 'reac
     render() {
         return (
             <View>
+
                 <Image
                  style={styles.imagen} 
                  source={require('../../assets/logoTexto.png')}
@@ -40,8 +41,11 @@ import { Text, StyleSheet, View, TextInput, TouchableOpacity, Image } from 'reac
                        secureTextEntry={true}
                        value= {this.state.password}
                     />
-                    <TouchableOpacity style={styles.button} 
-                        onPress={()=>this.props.register(this.state.email, this.state.password, )}>
+                    {this.props.error ? 
+                        <Text>{this.props.error}</Text> : null}
+                    <TouchableOpacity style={styles.button}
+                    disabled={this.state.email == '' || this.state.user == '' || this.state.password == '' ? true:false} 
+                        onPress={()=>this.props.register(this.state.email, this.state.password, this.state.user)}>
                             <Text style={styles.textButton}>
                                 Registrarse
                             </Text>    

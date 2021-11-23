@@ -7,7 +7,6 @@ import { auth, db } from '../firebase/config';
     constructor(props) {
         super(props);
             this.state = {
-                titulo: '',
                foto: '',
                comentario: '',
                mostrarCamara: true,
@@ -17,12 +16,10 @@ import { auth, db } from '../firebase/config';
 
 agregarPost(){
     db.collection('posteos').add({
-        owner: auth.currentUser.email,
+        owner: auth.currentUser.displayName,
         descripcion: this.state.descripcion,
         createdAt: Date.now(),
-        likes: [],
-        comments: [],
-        titulo: this.state.titulo,
+        photo: this.state.foto
     }).then(()=>{
         console.log('creado')
         this.setState({
@@ -48,13 +45,7 @@ agregarPost(){
             <MyCamera onImageUpload={(foto) => this.subirFoto (foto)} />
         ) : (
                  <View>
-                <TextInput
-                style={styles.input}
-                placeholder= 'Titulo'
-                keyboardType= 'default'
-                onChangeText= {(text) => this.setState({titulo: text})}
-                value= { this.state.titulo}
-                />
+            
                 <TextInput style={styles.lugar}
                        onChangeText={(text) => this.setState({ descripcion: text })}
                        placeholder="descripcion"

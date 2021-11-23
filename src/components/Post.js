@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, Modal, Image } from 'react-native'
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Text, StyleSheet, View, Modal, Image, TouchableOpacity, FlatList, TextInput } from 'react-native'
+
 import { auth, db } from '../firebase/config';
 import firebase from 'firebase';
 
@@ -11,26 +11,27 @@ import firebase from 'firebase';
              likes: 0,
              liked: false,
              mostrarModal: false,
+             comentarios: '',
+             listaComentarios: null
          }
      }
 
      componentDidMount(){
-         this.recibirLikes();
-     }
 
-     recibirLikes() {
-         let likes = this.props.postData.data.likes;
-         if (likes) {
-             this.setState({
-                 likes: likes.length
-             })
-         }
-         if (likes.includes(auth.currentUser.email)) {
-             this.setState({
-                 liked: true
-             })
-         }
-     }
+         if(this.props.postData.data.likes){
+            this.setState({
+            likes:this.props.postData.data.likes.length,
+            liked: this.props.postData.data.likes.includes(auth.currentUser.email),  
+        })
+    } 
+        if(this.props.postData.data.comentario){
+            this.setState({
+                listaComentarios:this.props.postData.data.comentario,
+            })
+        }
+}
+     
+
 
      liquearPost() {
          let post = db.collection("posteos").doc(this.props.postData.id);
@@ -80,18 +81,52 @@ import firebase from 'firebase';
          })
      }
 
-    render() {
+     guardarComentario(){
+        console.log ('Guardar comentario')
+        let unComentario ={
+            createdAt: Date.now (),
+            autor: auth.currentUser.email,
+            comentarios: this.state.comentarios
+        }
+        db.collection('posteos').doc(this.props.postData.id).update({
+            comentario: firebase.firestore.FieldValue.arrayUnion(unComentario)
+        })
+        .then(()=>{
+            this.setState({
+                comentarios: '',
+                listaComentarios: this.props.postData.data.comentario,
+            })
+        })
+     }
+
+     borrarPost (){
+         db.collection('posteos').doc(this.props.postData.id).delete()
+     }
+    
+     render() {
+
         return (
             <View style={styles.container}>
+            
+        
+             <Text>Nombre de usuario: {this.props.postData.data.owner} </Text>  
+             {this.props.postData.data.owner == auth.currentUser.displayName ?
+               <TouchableOpacity onPress={() => this.borrarPost()}  style={styles.button}>
+               <Text >Borrar post</Text>
+           </TouchableOpacity> 
+            : null}
                 <Image
                     style={{width: '100%', height: 250}}
                     source= {{uri: this.props.postData.data.photo}}
                 />
                 <Text>{this.props.postData.data.userName}</Text>
-                <Text>{this.props.postData.data.decription}</Text>
+                <Text>{this.props.postData.data.descripcion}</Text>
                 <TouchableOpacity onPress={() => this.abrirModal()}>
                     <Text>LIKES: {this.state.likes}</Text>
                 </TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={()=>this.abrirModal()}>
+                <Text>Dejar un cometario</Text>
+            </TouchableOpacity>
                 {
                     ! this.state.liked ?
                         <TouchableOpacity style={styles.button} 
@@ -105,9 +140,8 @@ import firebase from 'firebase';
                         </TouchableOpacity>
                 }
 
-                {
-                    ! this.state.mostrarModal ?
-                        null
+                { ! this.state.mostrarModal ?
+                       null
                         :
                             <Modal
                                 style={styles.modalContainer}
@@ -119,10 +153,42 @@ import firebase from 'firebase';
                                     <TouchableOpacity onPress= {() => this.cerrarModal()} style={styles.closeModal}>
                                         <Text>X</Text>
                                     </TouchableOpacity>
-                                    <Text style={styles.modalText}> soy un modal</Text>
+                                    
                                 
+                                    {
+                                this.state.listaComentarios ?
+                                
+                                <FlatList
+                                data={this.state.listaComentarios}
+                                keyExtractor={(comentarios) => comentarios.createdAt.toString ()}
+                                renderItem={ ({item})=> <Text> {item.autor}: {item.comentarios}</Text> }
+                                /> :
+                                <Text>Todavía no hay comentarios</Text>
+                            }
+
+
+
+                    <View>
+                        <TextInput 
+                            style={styles.textButton}
+                            placeholder="Comentar"
+                            keyboardType="default"
+                            multiline
+                            value={this.state.comentarios}
+                            onChangeText={texto => this.setState({comentarios: texto})}
+                            
+                        />
+                        <TouchableOpacity 
+                            style={styles.button}
+                            onPress={()=>{this.guardarComentario()}} 
+                            disabled={this.state.comentarios == '' ? true:false}>
+                            <Text style={styles.textButton}>Guadar comentario</Text>
+                        </TouchableOpacity>
+                    </View>
                             </Modal>
+                           
                 }
+                
             </View>
         )
     }
@@ -141,17 +207,19 @@ const styles = StyleSheet.create({
         borderRadius: 5,
     },
     button: {
-        backgroundColor: "#28a745",
+        backgroundColor: "#fde79e",
+        backgroundColor: "#",
         paddingHorizontal: 10,
         paddingVertical: 6,
         textAlign: "center",
         borderRadius: 4,
         borderWidth: 1,
         borderStyle: "solid",
-        borderColor: "#28a745",
+        backgroundColor: "#fde79e",
+        borderColor: "#fde79e",
     },
     textButton: {
-        color: "#fff",
+        color: "black",
     },
     modalContainer: {
         width:'100%',  

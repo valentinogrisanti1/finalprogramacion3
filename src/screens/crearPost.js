@@ -43,18 +43,15 @@ agregarPost(){
     render() {
         return this.state.mostrarCamara ? (
             
-            <MyCamera onImageUpload={(foto) => this.subirFoto (foto)} />
+            <MyCamera subirFoto={(foto) => this.subirFoto (foto)} />
         ) : (
             
                  <View>
-                     <Image
-                            style={{ flex: 1, width: "100%" }}
-                            source={{ uri: this.state.foto }}
-                        />
+
             
                 <TextInput style={styles.lugar}
                        onChangeText={(text) => this.setState({ descripcion: text })}
-                       placeholder="descripcion"
+                       placeholder="Descripcion"
                        keyboardType="default"
                        multiline={true}
                        numberOfLines={4}

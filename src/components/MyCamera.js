@@ -42,7 +42,7 @@ import { storage } from "../firebase/config";
 
             ref.put(image).then(() => {
                 ref.getDownloadURL(). then ((url) => {
-                    this.props.onImageUpload(url);
+                    this.props.subirFoto(url);
                     this.setState({
                         photo: "",
                     });

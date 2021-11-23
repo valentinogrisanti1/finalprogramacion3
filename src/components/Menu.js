@@ -89,9 +89,11 @@ logout (){
             tabBarIcon: ({color}) => screenOptions(route, color),
           })}>
             <Drawer.Screen name="Home" component={() => <Home />} />
-            <Drawer.Screen name="Profile" component={() => <Profile logout={()=>this.logout()}/>} />
-            <Drawer.Screen options={{lazy: true}} name="Post" component={(drawerProps) => <Post drawerProps={drawerProps}/>} />
             <Drawer.Screen name="Buscador" options={{ headerShown: false }} component={() => <Buscador />} />
+            <Drawer.Screen options={{lazy: true}} name="Post" component={(drawerProps) => <Post drawerProps={drawerProps}/>} />
+            <Drawer.Screen name="Profile" component={() => <Profile logout={()=>this.logout()}/>} />
+            
+            
 </Drawer.Navigator>
                 ): (
                     <Drawer.Navigator >
@@ -116,7 +118,7 @@ const screenOptions = (route, color) => {
         iconName = 'home';
         break;
       case 'Profile':
-        iconName = 'user';
+        iconName = 'user-circle';
         break;
       case 'Post':
         iconName = 'plus';
@@ -126,6 +128,9 @@ const screenOptions = (route, color) => {
         case 'Register':
         iconName = 'register';
         break;
+        case 'Buscador':
+            iconName = 'search';
+            break;
         break;
       default:
         break;

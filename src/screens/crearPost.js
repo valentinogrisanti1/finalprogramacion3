@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { Text, View, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import MyCamera from "../components/MyCamera";
 import { auth, db } from '../firebase/config';
 
@@ -25,6 +25,7 @@ agregarPost(){
         this.setState({
             descripcion: '',
             titulo: '',
+            mostrarCamara: true,
 
         })
         this.props.drawerProps.navigation.navigate('Home')
@@ -44,7 +45,12 @@ agregarPost(){
             
             <MyCamera onImageUpload={(foto) => this.subirFoto (foto)} />
         ) : (
+            
                  <View>
+                     <Image
+                            style={{ flex: 1, width: "100%" }}
+                            source={{ uri: this.state.foto }}
+                        />
             
                 <TextInput style={styles.lugar}
                        onChangeText={(text) => this.setState({ descripcion: text })}
@@ -86,7 +92,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         paddingVertical: 6,
         textAlign: "center",
-        borderRadius: 4,
+        borderRadius: 10,
         borderWidth: 1,
         borderStyle: "solid",
         borderColor: "#fde79e",

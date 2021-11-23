@@ -103,39 +103,39 @@ import firebase from 'firebase';
      borrarPost (){
          db.collection('posteos').doc(this.props.postData.id).delete()
      }
-    
+     
      render() {
 
         return (
             <View style={styles.container}>
-             <Text>Nombre de usuario: {this.props.postData.data.owner} </Text>  
+             <Text  style={styles.nombre}> {this.props.postData.data.owner} </Text>  
              <Text style={styles.infoLogin}>El posteo fue creado el: 
                 {this.props.postData.data.createdAt}</Text> 
              {this.props.postData.data.owner == auth.currentUser.displayName ?
-               <TouchableOpacity onPress={() => this.borrarPost()}  style={styles.button}>
+               <TouchableOpacity onPress={() => this.borrarPost()}  style={styles.borrar}>
                <Text >Borrar post</Text>
            </TouchableOpacity> 
             : null}
                 <Image
-                    style={{width: '100%', height: 250}}
+                    style={{width: '100%', height: 250, borderRadius: '10px',}}
                     source= {{uri: this.props.postData.data.photo}}
                 />
                 <Text>{this.props.postData.data.userName}</Text>
                 <Text>{this.props.postData.data.descripcion}</Text>
                 <TouchableOpacity onPress={() => this.abrirModal()}>
-                    <Text>LIKES: {this.state.likes}</Text>
+                    <Text style={styles.meGusta}>{this.state.likes} Me gustas</Text>
                 </TouchableOpacity>
             <TouchableOpacity style={styles.button} onPress={()=>this.abrirModal()}>
                 <Text>Dejar un cometario</Text>
             </TouchableOpacity>
                 {
                     ! this.state.liked ?
-                        <TouchableOpacity style={styles.button} 
+                        <TouchableOpacity style={styles.like} 
                         onPress={() => this.liquearPost()}>
                             <Text style={styles.textButton}> LIKE</Text>
                         </TouchableOpacity>
                         :
-                        <TouchableOpacity style={styles.button} 
+                        <TouchableOpacity style={styles.deslike} 
                         onPress={() => this.deslikearPost()}>
                             <Text style={styles.textButton}> DESLIKE</Text>
                         </TouchableOpacity>
@@ -213,7 +213,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         paddingVertical: 6,
         textAlign: "center",
-        borderRadius: 4,
+        borderRadius: 10,
         borderWidth: 1,
         borderStyle: "solid",
         backgroundColor: "#fde79e",
@@ -228,7 +228,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         backgroundColor: "white",
         borderColor: '#000000',
-        borderRadius: 6,
+        borderRadius: 10,
         padding: 10,
         backgroundColor: '#000000'
     },
@@ -237,11 +237,54 @@ const styles = StyleSheet.create({
         padding: 10,
         backgroundColor: '#dc3545',
         marginTop:2,
-        borderRadius: 4,
+        borderRadius: 10,
     },
     modalText:{
         fontWeight: 'bold',
         color: '#ffffff'
+    },
+    nombre: {
+        alignSelf: 'flex-start',
+    },
+    borrar: {
+        backgroundColor: "red",
+        backgroundColor: "#",
+        paddingHorizontal: 10,
+        paddingVertical: 6,
+        textAlign: "center",
+        borderRadius: 10,
+        borderWidth: 1,
+        borderStyle: "solid",
+        backgroundColor: "red",
+        borderColor: "red",
+    },
+    like: {
+        backgroundColor: "red",
+        backgroundColor: "#",
+        paddingHorizontal: 10,
+        paddingVertical: 6,
+        textAlign: "center",
+        borderRadius: 10,
+        borderWidth: 1,
+        borderStyle: "solid",
+        backgroundColor: "green",
+        borderColor: "green",
+    },
+    deslike: {
+        backgroundColor: "red",
+        backgroundColor: "#",
+        paddingHorizontal: 10,
+        paddingVertical: 6,
+        textAlign: "center",
+        borderRadius: 10,
+        borderWidth: 1,
+        borderStyle: "solid",
+        backgroundColor: "orange",
+        borderColor: "orange",
+    },
+    meGusta: {
+        textAlign: "left",
+
     },
 })
 

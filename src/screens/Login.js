@@ -39,6 +39,7 @@ import {
                        secureTextEntry={true}
                        value= {this.state.password}
                     />
+                    
                     {this.props.error ? 
                         <Text>{this.props.error}</Text> : null}
                     <TouchableOpacity  

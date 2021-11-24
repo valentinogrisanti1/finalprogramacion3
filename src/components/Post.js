@@ -127,14 +127,14 @@ import Icon  from 'react-native-vector-icons/FontAwesome';
                 {this.props.postData.data.owner == auth.currentUser.displayName ?
                <TouchableOpacity onPress={() => this.borrarPost()}  style={styles.borrar}>
                <Text >  
-                    <Icon name="trash" size={30} color="black" />
+                    <Icon name="trash" size={30} color="gray" />
                </Text>
            </TouchableOpacity> 
             : null}
 
             <TouchableOpacity style={styles.comentario} onPress={()=>this.abrirModal()}>
                 <Text>
-                    <Icon name="comments" size={30} color="black" />
+                    <Icon name="comments" size={30} color="#2099D8" />
                 </Text>
             </TouchableOpacity>
                 {
@@ -142,14 +142,14 @@ import Icon  from 'react-native-vector-icons/FontAwesome';
                         <TouchableOpacity style={styles.like} 
                         onPress={() => this.liquearPost()}>
                             <Text style={styles.textButton}> 
-                                <Icon name="thumbs-up" size={30} color="black" />
+                                <Icon name="thumbs-up" size={30} color="#1fbf3b" />
                             </Text>
                         </TouchableOpacity>
                         :
                         <TouchableOpacity style={styles.deslike} 
                         onPress={() => this.deslikearPost()}>
                             <Text style={styles.textButton}> 
-                                <Icon name="thumbs-down" size={30} color="black" />
+                                <Icon name="thumbs-down" size={30} color="red" />
                             </Text>
                         </TouchableOpacity>
                 }
@@ -244,7 +244,7 @@ const styles = StyleSheet.create({
         borderColor: '#000000',
         borderRadius: 10,
         padding: 10,
-        backgroundColor: '#000000'
+        backgroundColor: '#000000',
     },
     closeModal:{
         alignSelf: 'flex-end',
@@ -269,8 +269,8 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         borderWidth: 1,
         borderStyle: "solid",
-        backgroundColor: "white",
-        borderColor: "white",
+        backgroundColor: "#F1F1F1",
+        borderColor: "#F1F1F1",
     },
     like: {
         backgroundColor: "red",
@@ -280,9 +280,9 @@ const styles = StyleSheet.create({
         textAlign: "center",
         borderRadius: 10,
         borderWidth: 1,
-        borderStyle: "solid",
-        backgroundColor: "green",
-        borderColor: "green",
+        borderStyle: "",
+        backgroundColor: "#F1F1F1",
+        borderColor: "#F1F1F1",
      
     },
     deslike: {
@@ -294,8 +294,8 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         borderWidth: 1,
         borderStyle: "solid",
-        backgroundColor: "orange",
-        borderColor: "orange",
+        backgroundColor: "#F1F1F1",
+        borderColor: "#F1F1F1",
         
     },
     comentario: {
@@ -307,8 +307,8 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         borderWidth: 1,
         borderStyle: "solid",
-        backgroundColor: "#2099D8",
-        borderColor: "#2099D8",
+        backgroundColor: "#F1F1F1",
+        borderColor: "#F1F1F1",
         
     },
     meGusta: {

@@ -90,6 +90,7 @@ const styles = StyleSheet.create({
         borderStyle: "solid",
         backgroundColor: "#fde79e",
         borderColor: "#fde79e",
+        marginVertical: 10,
     },
     textButton: {
         color: "black",

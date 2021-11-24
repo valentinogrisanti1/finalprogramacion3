@@ -110,12 +110,10 @@ import Icon  from 'react-native-vector-icons/FontAwesome';
 
         return (
             <View style={styles.container}>
-             <Text>Nombre de usuario: {this.props.postData.data.owner} </Text>  
-             {this.props.postData.data.owner == auth.currentUser.displayName ?
-               <TouchableOpacity onPress={() => this.borrarPost()}  style={styles.borrar}>
-               <Text >Borrar post</Text>
-           </TouchableOpacity> 
-            : null}
+             <Text  style={styles.nombre}> {this.props.postData.data.owner} </Text>  
+             <Text style={styles.infoLogin}>El posteo fue creado el: 
+                {this.props.postData.data.createdAt}</Text> 
+           
                 <Image
                     style={{width: '100%', height: 250, borderRadius: '10px',}}
                     source= {{uri: this.props.postData.data.photo}}
@@ -326,7 +324,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-arround",
         width: "100%",
-        
+        marginVertical: 10,
     }
 })
 

@@ -129,7 +129,7 @@ import Icon  from 'react-native-vector-icons/FontAwesome';
                 {this.props.postData.data.owner == auth.currentUser.displayName ?
                <TouchableOpacity onPress={() => this.borrarPost()}  style={styles.borrar}>
                <Text >  
-                    <Icon name="trash" size={30} color="#900" />
+                    <Icon name="trash" size={30} color="black" />
                </Text>
            </TouchableOpacity> 
             : null}
@@ -271,8 +271,8 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         borderWidth: 1,
         borderStyle: "solid",
-        backgroundColor: "red",
-        borderColor: "red",
+        backgroundColor: "white",
+        borderColor: "white",
     },
     like: {
         backgroundColor: "red",
@@ -309,8 +309,8 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         borderWidth: 1,
         borderStyle: "solid",
-        backgroundColor: "#fde79e",
-        borderColor: "#fde79e",
+        backgroundColor: "#2099D8",
+        borderColor: "#2099D8",
         
     },
     meGusta: {

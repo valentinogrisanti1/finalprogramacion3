@@ -40,6 +40,7 @@ import Post from '../components/Post'
                 <TouchableOpacity style={styles.button} onPress={()=>this.props.logout()}>
                     <Text>CERRAR SESION </Text>
                 </TouchableOpacity>
+                
                 <FlatList
                     data={this.state.posts}
                     keyExtractor={(post) => post.id}
@@ -74,11 +75,10 @@ const styles = StyleSheet.create({
         textAlign: `center`,
         marginBottom: 10,
         marginTop: 10,
-        color: "#E5E24A",
-        
-
+        color: "#E5E24A"
        
       },
+     
 })
 
 export default Profile;

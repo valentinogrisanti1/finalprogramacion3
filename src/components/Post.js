@@ -15,7 +15,8 @@ import Icon  from 'react-native-vector-icons/FontAwesome';
              liked: false,
              mostrarModal: false,
              comentarios: '',
-             listaComentarios: null
+             listaComentarios: null,
+             cantidadComentarios: 0,
          }
      }
 
@@ -30,6 +31,7 @@ import Icon  from 'react-native-vector-icons/FontAwesome';
         if(this.props.postData.data.comentario){
             this.setState({
                 listaComentarios:this.props.postData.data.comentario,
+                cantidadComentarios: this.props.postData.data.comentario.length
             })
         }
 }
@@ -98,6 +100,8 @@ import Icon  from 'react-native-vector-icons/FontAwesome';
             this.setState({
                 comentarios: '',
                 listaComentarios: this.props.postData.data.comentario,
+                cantidadComentarios: this.props.postData.data.comentario.length
+
             })
         })
      }
@@ -118,8 +122,9 @@ import Icon  from 'react-native-vector-icons/FontAwesome';
                 />
                 <Text>{this.props.postData.data.userName}</Text>
                 <Text style={styles.descripcion}>{this.props.postData.data.descripcion}</Text>
+                <Text style={styles.meGusta}>{this.state.likes} Me gustas</Text>
                 <TouchableOpacity onPress={() => this.abrirModal()}>
-                    <Text style={styles.meGusta}>{this.state.likes} Me gustas</Text>
+                    <Text style={styles.meGusta}> {this.state.cantidadComentarios} Comentarios</Text>
                 </TouchableOpacity>
 
                 <View style={styles.botones}>

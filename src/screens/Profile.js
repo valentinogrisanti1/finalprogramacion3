@@ -32,13 +32,13 @@ import Post from '../components/Post'
           
             <View>
                 <Text style={styles.infoLogin}> ESTE ES TU PERFIL! </Text>
-                <Text style={styles.infoLogin}>Bienvenido {auth.currentUser.displayName}</Text>
+                <Text style={styles.infoLogin1}>Bienvenid@ {auth.currentUser.displayName}</Text>
                 <Text style={styles.infoLogin}>Email: {auth.currentUser.email}</Text>
                 <Text style={styles.infoLogin}>Tu usuario fue creado el: {auth.currentUser.metadata.creationTime}</Text>
                 <Text style={styles.infoLogin}>La ultima vez que te logueaste a GRUMIT: {auth.currentUser.metadata.lastSignInTime}</Text>
                 <Text style={styles.infoLogin}>Cantidad de posteos: {this.state.posts.length}</Text>
                 <TouchableOpacity style={styles.button} onPress={()=>this.props.logout()}>
-                    <Text>CEERRAR SESION </Text>
+                    <Text>CERRAR SESION </Text>
                 </TouchableOpacity>
                 <FlatList
                     data={this.state.posts}
@@ -67,6 +67,17 @@ const styles = StyleSheet.create({
         textAlign: `center`,
         marginBottom: 10,
         marginTop: 10,
+      },
+      infoLogin1:{
+        fontSize: 29,
+        fontWeight: `bold`,
+        textAlign: `center`,
+        marginBottom: 10,
+        marginTop: 10,
+        color: "#E5E24A",
+        
+
+       
       },
 })
 

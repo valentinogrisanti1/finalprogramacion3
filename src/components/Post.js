@@ -259,6 +259,8 @@ const styles = StyleSheet.create({
     },
     nombre: {
         alignSelf: 'flex-start',
+        fontSize: 25,
+        fontWeight: 'bold',
     },
     borrar: {
         backgroundColor: "red",
@@ -317,6 +319,7 @@ const styles = StyleSheet.create({
     },
     descripcion: {
     marginVertical: 10,
+    fontSize: 16,
     },
     botones: {
         flexDirection: "row",

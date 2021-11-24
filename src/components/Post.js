@@ -111,8 +111,6 @@ import Icon  from 'react-native-vector-icons/FontAwesome';
         return (
             <View style={styles.container}>
              <Text  style={styles.nombre}> {this.props.postData.data.owner} </Text>  
-             <Text style={styles.infoLogin}>El posteo fue creado el: 
-                {this.props.postData.data.createdAt}</Text> 
            
                 <Image
                     style={{width: '100%', height: 250, borderRadius: '10px',}}
